@@ -11,15 +11,18 @@ VERSION_TYPE = "daily"
 def push():
     logging.info("Received new push!")
     data = request.get_json()
-
-    if data["repository"]["default_branch"] == data["repository"]["master_branch"]:
-        subprocess.call(
-            [
-                SHELL_SCRIPT, data["repository"]["clone_url"]], # repository url
-                data["repository"]["name"].lower() + ":" + VERSION_TYPE, # image name
-                data["repository"]["name"]) # container name
+    if "ref" in data:
+        master = data["repository"]["master_branch"] if "master_branch" in "master_branch" in data["repository"] else "master"
+        if data["repository"]["default_branch"] == master:
+            subprocess.call(
+                [
+                    SHELL_SCRIPT, data["repository"]["clone_url"]], # repository url
+                    data["repository"]["name"].lower() + ":" + VERSION_TYPE, # image name
+                    data["repository"]["name"]) # container name
+        else:
+            logging.info("Not a push to the masterbranch --> not building")
     else:
-        logging.info("Not a push to the masterbranch --> not building")
+        logging.info("Probably not usefull, no reference in request")
 
     return jsonify({"success": True})
 
