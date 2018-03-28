@@ -2,7 +2,7 @@
 echo "Building image for repository $3"
 docker build --tag=$2 $1
 
-if [ ! "$(docker ps -q -f name=$3)" ]; then
+if [ "$(docker ps -q -f name=$3)" ]; then
     # if [ "$(docker ps -aq -f status=exited -f name=$3)" ]; then
         
     # else
