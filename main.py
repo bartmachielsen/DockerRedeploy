@@ -4,7 +4,7 @@ app = Flask(__name__)
 import logging
 import subprocess
 
-SHELL_SCRIPT = "build_image.sh"
+SHELL_SCRIPT = "./build_image.sh"
 VERSION_TYPE = "daily"
 
 @app.route('/github', methods=['POST'])
