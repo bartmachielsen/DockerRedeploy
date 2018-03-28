@@ -8,6 +8,8 @@ RUN apt-get update && apt-get install -y \
     python-pip \
     python-virtualenv
 
+RUN curl -sSL https://get.docker.com | sh
+
 ADD . /
 
 RUN pip install --upgrade -r requirements.txt
