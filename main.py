@@ -17,11 +17,11 @@ def push():
             subprocess.check_output(
                 [
                     SHELL_SCRIPT, 
-                    [
+                    " ".join([
                         data["repository"]["clone_url"], # repository url
                         data["repository"]["name"].lower() + ":" + VERSION_TYPE, # image name
                         data["repository"]["name"]
-                    ]
+                    ])
                 ]) # container name
         else:
             logging.info("Not a push to the masterbranch --> not building")
