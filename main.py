@@ -14,11 +14,15 @@ def push():
     if "ref" in data:
         master = data["repository"]["master_branch"] if "master_branch" in "master_branch" in data["repository"] else "master"
         if data["repository"]["default_branch"] == master:
-            subprocess.call(
+            subprocess.check_output(
                 [
-                    SHELL_SCRIPT, data["repository"]["clone_url"]], # repository url
-                    [data["repository"]["name"].lower() + ":" + VERSION_TYPE, # image name
-                    data["repository"]["name"]]) # container name
+                    SHELL_SCRIPT, 
+                    [
+                        data["repository"]["clone_url"], # repository url
+                        data["repository"]["name"].lower() + ":" + VERSION_TYPE, # image name
+                        data["repository"]["name"]
+                    ]
+                ]) # container name
         else:
             logging.info("Not a push to the masterbranch --> not building")
     else:
