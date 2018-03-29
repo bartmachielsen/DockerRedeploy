@@ -12,6 +12,8 @@ ADD . /
 
 RUN pip install --upgrade -r requirements.txt
 
+RUN curl -sSL https://get.docker.com | sh
+
 RUN chmod +x build_image.sh
 
 # Define default command
